@@ -15,7 +15,19 @@ COPY package.json ./
 # Este sería el equivalente a escribir 'npm install' en la terminal
 RUN npm install
 
-COPY app.js ./
+# Con el primer punto le decimos a docker que copie TODO lo que está en el working directory
+# y en el segundo que lo pegue en el workdir en que nos encontramos. En este caso 'app'.
+# PERO OJO porque estyo copiaría toda la carpeta de node_modules
+COPY . .
+
+# Realizar testing
+RUN npm run test
+
+# Eliminar archivos y directorios no necesarios en PROD
+RUN rm -rf tests && rm -rf node_modules
+# Instalar únicamente las de producción
+RUN npm install --prod
+
 
 # Ya que tenemos los node_modules, ahora podemos correr el proyecto con el comando para correr el contenedor
 # Este comando NO se ejecuta en el build, se ejecuta CUANDO SE MONTE EL CONTENEDOR
