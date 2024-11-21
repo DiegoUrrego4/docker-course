@@ -9,11 +9,13 @@ WORKDIR /app
 # y el último archivo es el destino, es decir, donde van a ir.
 # IMPORTANTE: Como en la instrucción de arriba ya estamos en la carpeta 'app' por eso podemos usar el './' para
 # indicarle que queremos guardarlo en la carpeta en la que estamos, es decir, en 'app'
-COPY app.js package.json ./
+COPY package.json ./
 
 # Ya tenemos los archivos dentro de la carpeta. Ahora, necesitamos instalar los paquetes de node
 # Este sería el equivalente a escribir 'npm install' en la terminal
 RUN npm install
+
+COPY app.js ./
 
 # Ya que tenemos los node_modules, ahora podemos correr el proyecto con el comando para correr el contenedor
 # Este comando NO se ejecuta en el build, se ejecuta CUANDO SE MONTE EL CONTENEDOR
