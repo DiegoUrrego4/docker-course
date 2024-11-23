@@ -1,5 +1,6 @@
-FROM node:22-alpine3.20
 # Esta distribución de linux viene con una carpeta interna llamada app
+#FROM --platform=linux/amd64 node:22-alpine3.20
+FROM --platform=$BUILDPLATFORM node:22-alpine3.20
 
 # cd app -> En este punto no existe nada instalado, solo la versión de linux y nos movimos a app
 WORKDIR /app
